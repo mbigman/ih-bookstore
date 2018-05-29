@@ -3,6 +3,7 @@ var loggedInUser;
 //     initializeApp()
 // }
 
+
 function initializeApp(){
     var w =window.location.href
     firebase.auth().onAuthStateChanged( function(user){
