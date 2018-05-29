@@ -396,8 +396,8 @@ function loadAllBooks(){
         querySnapshot.forEach(function(doc){
             console.log(docID)
             var data = doc.data()
-            console.log(data);
             var docID = doc.id
+            console.log(docID);
             var status= data.status
             if (status == "in_progress"){
                 var status= "In Progress";
@@ -447,7 +447,6 @@ function loadAllBooks(){
 function loadSearchedBooks(){
     var b = firebase.firestore().collection('books');
     console.log(b.doc)
-    var docID = doc.id
     var searchTerm = document.getElementById('mySearch').value
     firebase.firestore().collection('books')
     .where('status','==',"available")
@@ -467,6 +466,7 @@ function loadSearchedBooks(){
                 </div>`
         querySnapshot.forEach(function(doc){
             var data = doc.data()
+            var docID= doc.id
             var status= data.status
             console.log(searchTerm)
             if(data.title.toLowerCase().includes(searchTerm.toLowerCase()) || data.course.toLowerCase().includes(searchTerm.toLowerCase())){ 
