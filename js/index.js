@@ -161,6 +161,17 @@ function changestatus(id){
     alert("Status changed sucessfully! Reload page to see changes")
 }
 
+function changeprice(id){
+    console.log(id);
+    var pricevalue= document.getElementById(`newStatus${id}`).value;
+    var thedoc= firebase.firestore().collection('books').doc(id);
+    thedoc.update({
+        status: statusvalue
+       
+    })
+    alert("Status changed sucessfully! Reload page to see changes")
+}
+
 
 //populates the book based on course
 function populateBooks(course, book){
