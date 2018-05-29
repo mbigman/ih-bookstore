@@ -13,9 +13,11 @@ function initializeApp(){
             displayUserName(user)  
             buttonToSignOut()
             // sendWelcomeEmail(user.displayName,user.email)
-            if(w == "https://preview.c9users.io/linkacleo1/book-app/bookapp/sellerpage.html" || w=="https://mbigman.github.io/ih-bookstore/sellerpage.html"){
-                loadSellersBooks(user)
-            } 
+            // if(w == "https://preview.c9users.io/linkacleo1/book-app/bookapp/sellerpage.html" || w=="https://mbigman.github.io/ih-bookstore/sellerpage.html"){
+            //     Books(user)
+            // } 
+            loadSellersBooks()
+            
         } else {
             // removeUserProfile()    
             buttonToSignIn()
@@ -230,7 +232,10 @@ function displayUserProfile(user){
 //         document.getElementById('my-email').innerHTML = ` <p id="my-email" > Email: ${user.email}</p>`
 // }
 
-function loadSellersBooks(user){
+function loadSellersBooks(){
+    console.log(loggedInUser)
+    var user = loggedInUser
+    console.log(user)
     // var currentUser = firebase.auth().currentUser;
     // console.log(currentUser);
     // var b = firebase.firestore().collection('books'); /*global firebase*/
@@ -357,11 +362,10 @@ function emails(email, booktitle){
 // </div>`
 
 //this code works if its okay to do it like this
-var email_to= email
 var subject = (booktitle);
 var body = ('');
 
-document.write('<body style="padding-top:300px;"><center><button type="button" style="font-size: 80;border: 5px solid #349999;background-color: #349999;"><a style="color: black;text-decoration: none;font-family: "Trebuchet MS", Helvetica, sans-serif;" href="mailto:' + email_to +
+document.write('<body style="padding-top:300px;"><center><button type="button" style="font-size: 80;border: 5px solid #349999;background-color: #349999;"><a style="color: black;text-decoration: none;font-family: "Trebuchet MS", Helvetica, sans-serif;" href="mailto:' + email+
 
 '?subject=' +subject+
 '&body=' +body+
@@ -397,7 +401,12 @@ function loadAllBooks(){
             console.log(docID);
             var email = data.seller;
             var booktitle= data.title;
-            var booktitle= booktitle.replace(' ', '-');
+            // for(i = 0; i < booktitle.length; i++) {
+            // booktitle = booktitle.replace(" ", "_");
+            // }
+            console.log( typeof "email")
+            console.log( typeof "booktitle")
+            console.log(booktitle);
             var status= data.status
             if (status == "in_progress"){
                 var status= "In Progress";
@@ -429,7 +438,7 @@ function loadAllBooks(){
                             </div>
                                 </div>
                                 <h2></h2>
-                                <a class="btn btn-primary tm-button-rounded tm-button-no-border tm-button-normal tm-button-timeline" onclick = "emails(${email}, ${booktitle})">Buy Book</a> 
+                                <a class="btn btn-primary tm-button-rounded tm-button-no-border tm-button-normal tm-button-timeline" onclick = "emails('${email}', '${booktitle}')">Buy Book</a> 
 
                                 </div>
                             </div> <!-- row -->`
