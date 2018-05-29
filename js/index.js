@@ -13,7 +13,7 @@ function initializeApp(){
             displayUserName(user)  
             buttonToSignOut()
             // sendWelcomeEmail(user.displayName,user.email)
-            if(w == "https://preview.c9users.io/linkacleo1/book-app/bookapp/sellerpage.html"){
+            if(w == "https://preview.c9users.io/linkacleo1/book-app/bookapp/sellerpage.html" || w=="https://mbigman.github.io/ih-bookstore/sellerpage.html"){
                 loadSellersBooks(user)
             } 
         } else {
@@ -334,7 +334,8 @@ function loadSellersBooks(user){
 // }
 
 //almost works, problem with getting the infromation from the timeline pg to the sendemail 
-function email(){
+function emails(email, booktitle){
+    console.log("yes");
 // var w =window.location.href
 // if (w== "https://preview.c9users.io/linkacleo1/book-app/bookapp/timeline.html"){
 // var email= document.getElementById('selleremail').innerHTML
@@ -356,14 +357,11 @@ function email(){
 // </div>`
 
 //this code works if its okay to do it like this
-var booktitle= document.getElementById('emailbook').innerHTML
-var docID= document.getElementById('docID').innerHTML
-var email= document.getElementById(`selleremail_${docID}`).innerHTML
-console.log(email);
+var email_to= email
 var subject = (booktitle);
 var body = ('');
 
-document.write('<body style="padding-top:300px;"><center><button type="button" style="font-size: 80;border: 5px solid #349999;background-color: #349999;"><a style="color: black;text-decoration: none;font-family: "Trebuchet MS", Helvetica, sans-serif;" href="mailto:' + email +
+document.write('<body style="padding-top:300px;"><center><button type="button" style="font-size: 80;border: 5px solid #349999;background-color: #349999;"><a style="color: black;text-decoration: none;font-family: "Trebuchet MS", Helvetica, sans-serif;" href="mailto:' + email_to +
 
 '?subject=' +subject+
 '&body=' +body+
@@ -394,10 +392,12 @@ function loadAllBooks(){
                     </br>
                 </div>`
         querySnapshot.forEach(function(doc){
-            console.log(docID)
             var data = doc.data()
             var docID = doc.id
             console.log(docID);
+            var email = data.seller;
+            var booktitle= data.title;
+            var booktitle= booktitle.replace(' ', '-');
             var status= data.status
             if (status == "in_progress"){
                 var status= "In Progress";
@@ -420,7 +420,7 @@ function loadAllBooks(){
                           <div class="media-body tm-flexbox-ie-fix tm-width-ie-fix tm-bg-light-gray">
                             <div class="p-5">
                                 <h1 class="mb-4 mt-0 tm-timeline-item-title">Book Title: <p id="emailbook"> ${data.title}</p></h1>
-                                <h2 class="mb-4">Seller Email: <p id="selleremail_${docID}">${data.seller}</p></h2>
+                                <h2 class="mb-4">Seller Email: <p id="selleremail">${data.seller}</p></h2>
                                 <h2 class="mb-4">Course Name: ${data.course}</h2>
                                 <h2 class="mb-4">Price: ${data.price}</h2>
                                 <h2 class="mb-4">Condition: ${data.condition}</h2>
@@ -429,10 +429,17 @@ function loadAllBooks(){
                             </div>
                                 </div>
                                 <h2></h2>
-                                <a class="btn btn-primary tm-button-rounded tm-button-no-border tm-button-normal tm-button-timeline" onclick="email()">Buy Book</a> 
+                                <a class="btn btn-primary tm-button-rounded tm-button-no-border tm-button-normal tm-button-timeline" onclick = "emails(${email}, ${booktitle})">Buy Book</a> 
 
                                 </div>
                             </div> <!-- row -->`
+            
+            // var email = data.seller
+            // var booktitle= data.title
+            // console.log(email)
+            // if()
+            // emails(email, booktitle);
+                            
             /*
             This is where you would create an HTML element for a card 
             Each loop creates a new element
